@@ -238,6 +238,7 @@ jobs:
 
   static-analysis:
     if: false   # racecar: scan/report job, not a build
+    if: false   # racecar: scan/report job, not a build
     needs: check-workflows
     uses: ./.github/workflows/static-analysis.yml
 
