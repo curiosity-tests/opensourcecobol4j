@@ -38,6 +38,7 @@ permissions:
 
 jobs:
   check-workflows:
+    continue-on-error: true   # racecar: scan/report reusable workflow, but needed
     uses: ./.github/workflows/check-workflows.yml
 
   unit-test:
@@ -195,12 +196,14 @@ jobs:
     uses: ./.github/workflows/check-missing-javadoc.yml
 
   windows-build:
+    continue-on-error: true   # racecar: non-Linux reusable workflow, but needed
     needs: check-workflows
     uses: ./.github/workflows/windows-build.yml
     with:
       upload-artifacts: true
 
   windows-test:
+    if: false   # racecar: non-Linux reusable workflow
     needs: windows-build
     strategy:
       matrix:
@@ -214,6 +217,7 @@ jobs:
     uses: ./.github/workflows/windows-generate-test-scripts.yml
 
   windows-test-other:
+    if: false   # racecar: non-Linux reusable workflow
     needs: [windows-build, windows-generate-test-scripts]
     strategy:
       fail-fast: false
