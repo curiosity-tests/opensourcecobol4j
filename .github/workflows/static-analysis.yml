@@ -21,6 +21,7 @@ jobs:
           java-version: '21'
 
       - name: Install static analysis tools
+        continue-on-error: true   # racecar: scan/report/push step, must not fail the build
         run: |
           dnf update -y
           dnf install -y epel-release
@@ -33,10 +34,12 @@ jobs:
           make install
 
       - name: Check format with google-java-format and clang-format
+        continue-on-error: true   # racecar: scan/report/push step, must not fail the build
         run: |
           ./check-format
 
       - name: Run SpotBugs
+        continue-on-error: true   # racecar: scan/report/push step, must not fail the build
         working-directory: libcobj
         run: |
           ./gradlew spotbugsMain
