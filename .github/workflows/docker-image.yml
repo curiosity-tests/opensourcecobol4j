@@ -94,6 +94,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push the image to Docker Hub
+        continue-on-error: true   # racecar: scan/report/push step, must not fail the build
         if: inputs.push-to-dockerhub
         run: |
           docker push "$IMAGE_NAME:$IMAGE_TAG"
